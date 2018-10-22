@@ -31,25 +31,7 @@ func createServer() {
 
 	http.HandleFunc("/email", handleEmail)
 
-	port := os.Getenv("HTTP_PLATFORM_PORT")
-
-	if port == "" {
-		port = "8082"
-	} else {
-		f, err := os.OpenFile("D:\\home\\site\\wwwroot\\testlogfile",
-			os.O_RDWR | os.O_CREATE | os.O_APPEND, 0666)
-
-		if err != nil {
-			log.Fatalf("error opening log file: %v", err)
-		}
-
-		defer f.Close()
-
-		log.SetOutput(f)
-	}
-
-	log.Printf("port is: %v", port)
-	log.Fatal(http.ListenAndServe(":" + port, nil))
+	log.Fatal(http.ListenAndServe(":80", nil))
 }
 
 func handleEmail(w http.ResponseWriter, r *http.Request) {
